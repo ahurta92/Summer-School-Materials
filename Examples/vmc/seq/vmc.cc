@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <cmath>
+
 #include "cmwcran.h"
 
 using namespace std;
@@ -8,7 +9,7 @@ using namespace std;
 CMWCGenerator u;
 
 const int Npoint = 1000;         // No. of independent samples
-const int Neq = 100000;          // No. of generations to equilibrate 
+const int Neq = 100000;          // No. of generations to equilibrate
 const int Ngen_per_block = 5000; // No. of generations per block
 const int Nsample = 100;         // No. of blocks to sample
 
@@ -75,7 +76,7 @@ int main() {
     double* PSI = new double[Npoint]; // Holds wave function values
 
     initialize(Npoint, R, PSI);
-    
+
     for (int step=0; step<Neq; step++) { // Equilibrate
         for (int i=0; i<Npoint; i++) {
             propagate(R + i*6, PSI[i]);
@@ -101,8 +102,8 @@ int main() {
             }
         }
 
-        r1_block /= Ngen_per_block*Npoint;  
-        r2_block /= Ngen_per_block*Npoint;  
+        r1_block /= Ngen_per_block*Npoint;
+        r2_block /= Ngen_per_block*Npoint;
         r12_block /= Ngen_per_block*Npoint;
 
         printf(" block %6d  %.6f  %.6f  %.6f\n", block, r1_block, r2_block, r12_block);
@@ -112,19 +113,19 @@ int main() {
         r12_tot += r12_block; r12_sq_tot += r12_block*r12_block;
     }
 
-    r1_tot /= Nsample; r1_sq_tot /= Nsample; 
-    r2_tot /= Nsample; r2_sq_tot /= Nsample; 
-    r12_tot /= Nsample; r12_sq_tot /= Nsample; 
+    r1_tot /= Nsample; r1_sq_tot /= Nsample;
+    r2_tot /= Nsample; r2_sq_tot /= Nsample;
+    r12_tot /= Nsample; r12_sq_tot /= Nsample;
 
     double r1s = sqrt((r1_sq_tot - r1_tot*r1_tot) / Nsample);
     double r2s = sqrt((r2_sq_tot - r2_tot*r2_tot) / Nsample);
     double r12s = sqrt((r12_sq_tot - r12_tot*r12_tot) / Nsample);
-    
+
     printf(" <r1>  = %.6f +- %.6f\n", r1_tot, r1s);
     printf(" <r2>  = %.6f +- %.6f\n", r2_tot, r2s);
     printf(" <r12> = %.6f +- %.6f\n", r12_tot, r12s);
 
-    printf(" accept=%ld    reject=%ld    acceptance ratio=%.1f%%\n", 
+    printf(" accept=%ld    reject=%ld    acceptance ratio=%.1f%%\n",
            naccept, nreject, 100.0*naccept/(naccept+nreject));
 
     return 0;
@@ -136,9 +137,9 @@ int main() {
 
 
 
-    
 
-    
+
+
 
 
 
